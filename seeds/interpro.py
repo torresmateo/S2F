@@ -50,7 +50,7 @@ class InterProSeed(Seed):
         self.all_methods = sparse.csr_matrix((len(self.proteins),
                                               len(self.terms)))
         self.tell('Annotating and up propagating')
-        for e, m in enumerate(self.methods):
+        for m in self.methods:
             methods_df[m] = pd.DataFrame(methods[m])
             self.go.load_annotations(methods_df[m], m)
             self.go.up_propagate_annotations(m)

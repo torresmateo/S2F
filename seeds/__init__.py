@@ -3,9 +3,8 @@ import abc
 from Utils import FancyApp
 
 
-class Seed(FancyApp.FancyApp):
-
-    __metaclass__ = abc.ABCMeta
+class Seed(FancyApp.FancyApp,
+           metaclass=abc.ABCMeta):
 
     @classmethod
     def get_seed(cls):

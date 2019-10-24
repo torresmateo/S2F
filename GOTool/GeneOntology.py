@@ -315,7 +315,7 @@ class GeneOntology(FancyApp.FancyApp):
         The expected DataFrame should contain only one score per pair,
         otherwise the latest score will be kept.
         """
-        for i, a in annotations.iterrows():
+        for _, a in annotations.iterrows():
             term = self.find_term(a['GO ID'])
             if annotate_obsoletes or not term.is_obsolete:
                 term.annotations[organism_name][a['Protein']] = a['Score']

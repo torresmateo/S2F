@@ -18,8 +18,8 @@ class BuildMatrices(FancyApp.FancyApp):
             goa,
             fasta,
             obo,
-            domains=['cellular_component', 'biological_process',
-                     'molecular_function'],
+            domains=('cellular_component', 'biological_process',
+                     'molecular_function'),
             verbose=True):
 
         super(BuildMatrices, self).__init__()
@@ -144,7 +144,7 @@ class BuildMatrices(FancyApp.FancyApp):
 
     def inner_infer_values_goa(self, value_array):
         annotations = self.gn.get_annotations('s2f')
-        for i, row in annotations.iterrows():
+        for _, row in annotations.iterrows():
             value_array[self.genes_idx[row['Protein']],
                         self.go_terms_idx[row['GO ID']]] = 1.0
 

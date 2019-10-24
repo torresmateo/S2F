@@ -8,9 +8,8 @@ from Measures.letor_metrics import ndcg_score
 from Utils import FancyApp
 
 
-class S2FMeasure(FancyApp.FancyApp):
-
-    __metaclass__ = abc.ABCMeta
+class S2FMeasure(FancyApp.FancyApp,
+                 metaclass=abc.abstractclassmethod):
 
     @abc.abstractmethod
     def compute_per_gene(self, real):

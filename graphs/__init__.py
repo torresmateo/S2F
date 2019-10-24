@@ -6,9 +6,8 @@ from scipy import sparse
 from Utils import FancyApp
 
 
-class Graph(FancyApp.FancyApp):
-
-    __metaclass__ = abc.ABCMeta
+class Graph(FancyApp.FancyApp,
+            metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def compute_graph(self):

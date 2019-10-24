@@ -227,7 +227,7 @@ class Parser(object):
         # Python string -- luckily this is the same as an OBO string
         if value_and_mod and value_and_mod[0] == '"':
             g = tokenize.generate_tokens(StringIO(value_and_mod).readline)
-            for toknum, tokval, _, (erow, ecol), _ in g:
+            for toknum, tokval, _, (_, ecol), _ in g:
                 if toknum == tokenize.STRING:
                     value = eval(tokval)
                     mod = (value_and_mod[ecol:].strip(), )
@@ -281,7 +281,7 @@ def test():
     fp = open("go.obo")
     parser = Parser(fp)
     count = 0
-    for stanza in parser:
+    for _ in parser:
         count += 1
         if count % 1000 == 0:
             print("%d stanzas processed" % count)

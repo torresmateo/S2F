@@ -87,9 +87,9 @@ class Collection(Graph):
                  fasta, proteins, string_dir, string_links, core_ids,
                  output_dir, orthologs_dir, graphs_dir, alias, cpus, blacklist,
                  max_evalue, perc, positives,
-                 interesting_graphs=['neighborhood', 'experiments',
+                 interesting_graphs=('neighborhood', 'experiments',
                                      'coexpression', 'textmining',
-                                     'database']):
+                                     'database')):
         super(Collection, self).__init__()
         self.fasta = fasta
         self.proteins = proteins

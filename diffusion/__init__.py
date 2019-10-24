@@ -5,9 +5,8 @@ import pandas as pd
 from Utils import FancyApp
 
 
-class Diffusion(FancyApp.FancyApp):
-
-    __metaclass__ = abc.ABCMeta
+class Diffusion(FancyApp.FancyApp,
+                metaclass=abc.ABCMeta):
 
     @staticmethod
     def _write_results(diffusion_matrix, proteins, terms, filename):
