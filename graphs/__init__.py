@@ -5,7 +5,7 @@ import pandas as pd
 from scipy import sparse
 from itertools import combinations
 from Utils import FancyApp
-
+from rich.progress import track
 
 class Graph(FancyApp.FancyApp):
 
@@ -68,6 +68,17 @@ class Graph(FancyApp.FancyApp):
         # return ((cols-1)*n + rows) - ( n*(n-1)/2 - (n-cols)*(n-cols+1)/2 )
 
     @staticmethod
+    def cumulative_row_lengths(n):
+        x = np.arange(n-1, 0, -1)
+        a = []
+        for i, v in enumerate(x):
+            if i == 0:
+                a.append(v)
+            else:
+                a.append(a[i-1]+v)
+        return np.array(a)
+    
+    @staticmethod
     def triangular2ij(indices, n):
         """
         Inverse of `ij2triangular`
@@ -75,10 +86,18 @@ class Graph(FancyApp.FancyApp):
         :param n: number of nodes in the matrix
         :return: rows, cols in 2D coordinates
         """
-        rows = n - 2 - np.floor(np.sqrt(-8 * indices + 4 * n * (n - 1) - 7) /
-                                2.0 - 0.5)
-        cols = indices + rows + 1 - n * (n - 1) / 2 +\
-            (n - rows) * ((n - rows) - 1) / 2
+        if n > 25000:
+            rows = []
+            cols = []
+            for i in track(range(n), description="creating full rows and cols"):
+                for j in range(i+1, n):
+                    rows.append(i)
+                    cols.append(j)
+        else:
+            rows = n - 2 - np.floor(np.sqrt(-8 * indices + 4 * n * (n - 1) - 7) /
+                                    2.0 - 0.5)
+            cols = indices + rows + 1 - n * (n - 1) / 2 +\
+                (n - rows) * ((n - rows) - 1) / 2
         return rows, cols
 
     @staticmethod
